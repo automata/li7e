@@ -40,7 +40,7 @@
   $ npm -g install mime
   #+END_SRC
   
-* JS Libraries Used
+* JS Libraries Used (for now)
   - Audiolet
   - CodeMirror2
   - Raphael
@@ -59,7 +59,7 @@ $ git clone git://github.com/automata/li7e.git --recursive
   Run the HTTP server:
 
   #+BEGIN_SRC sh
-$ node sever.js
+$ node server.js
   #+END_SRC
 
   And point your browser (Firefox 4.0 or latest Chrome build) to http://localhost:8080.
