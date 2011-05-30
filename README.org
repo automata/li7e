@@ -40,6 +40,12 @@ $ npm -g install socket.io
 $ npm -g install mime
   #+end_src
   
+* JS Libraries Used
+  - Audiolet
+  - codemirror2
+  - raphael
+  - processingjs
+  - socket.io
 * Installation
 
 * Using
