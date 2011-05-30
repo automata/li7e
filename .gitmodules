@@ -1,3 +1,6 @@
 [submodule "vendor/codemirror2"]
 	path = vendor/codemirror2
 	url = https://github.com/marijnh/CodeMirror2.git
+[submodule "vendor/Audiolet"]
+	path = vendor/Audiolet
+	url = git://github.com/automata/Audiolet.git
