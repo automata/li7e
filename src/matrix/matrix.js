@@ -1,13 +1,38 @@
 $(function() {
 
-    //
-    // UI
-    //
+    //  UI
+    $( ".matrix" ).draggable();
 
-    $( ".tonematrix" ).draggable();
+    $( ".commands button:first" ).button({
+            icons: {
+                primary: "ui-icon-play"
+            },
+            text: false
+        }).next().button({
+            icons: {
+                 primary: "ui-icon-stop"
+            },
+            text: false
+        }).click(function(){
+	    for (foo=0; foo<8; foo++){
+		for (bar=0; bar<8; bar++){
+			// sound equal 0:
+            		// patterns[foo].pattern.list[bar] = 0;
+
+			// try uncheck all buttons:
+			//fooStr =  foo.toString();
+			//barStr =  bar.toString();
+			//id = "c".concat(fooStr);
+			//id = id.concat(barStr);
+			//console.log(id);
+			//$(id).attr("checked", false);
+		}
+   	     }
+    });
+
     $( "input:checkbox", ".tonematrix").button().click(function () {
         var id = $(this).attr('id');
-
+       console.log ($(this));
         var synthId = id[1].toInt();
         var stepId = id[2].toInt();
         var tmp = patterns[synthId].pattern;
@@ -24,9 +49,7 @@ $(function() {
         patterns[synthId].pattern = tmp;
     });
 
-    //
     // audio
-    //
 
     var majorScale = [ 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
 
