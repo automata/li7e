@@ -24,23 +24,6 @@ $(function() {
         patterns[synthId].pattern = tmp;
     });
 
-	    
-       
-    $("#slider1").slider({
-        value:1,
-        min: 0,
-        max: 3,
-        step: 0.25,
-        orientation: "horizontal",
-        animate: true,
-        slide: function (event, ui) {
-            var x = ui.value;
-            console.log(x);
-            duration.pattern = new PSequence([x], Infinity);
-        }});
-            
-
-
     //
     // audio
     //
@@ -138,4 +121,5 @@ $(function() {
     });      
     ***/
 });
+
 

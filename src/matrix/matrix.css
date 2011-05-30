@@ -50,10 +50,6 @@ html, body {
 
 .ui-button-text-only .ui-button-text { display: none; };
 
-.ui-slider-horizontal {
-    width: 200px;
-}
-
 #status {
     height: 50px; 
     position: absolute;
@@ -74,3 +70,4 @@ html, body {
 #status p:nth-child(odd) { 
     background: #333; 
 }
+
