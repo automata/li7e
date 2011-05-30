@@ -1,43 +1,43 @@
 * LI7E
 
-* Introduction
-
 * Prerequisites
 
-  On a Unix system, follow the instructions to install all the dependencies.
+  LI7E depends of node.js and some of its modules. On a Unix system, follow
+  the instructions or refer to the links to more information on getting
+  everything up and running.
   
   Install node.js (more info [[https://github.com/joyent/node/wiki/Installation][here]]):
 
   #+begin_src sh
-$ git clone --depth 1 https://github.com/joyent/node.git
-$ cd node
-$ export JOBS=2 # optional, sets number of parallel commands.
-$ mkdir ~/local
-$ ./configure --prefix=$HOME/local/node
-$ make
-$ make install
-$ echo "export PATH=\$HOME/local/node/bin:\$PATH" >> ~/.bashrc
-$ echo "export NODE_PATH=\$HOME/local/node/lib/node_modules/" >> ~/.bashrc
-$ export PATH=$HOME/local/node/bin:$PATH
-$ export NODE_PATH=$HOME/local/node/lib/node_modules/
+  $ git clone --depth 1 https://github.com/joyent/node.git
+  $ cd node
+  $ export JOBS=2 # optional, sets number of parallel commands.
+  $ mkdir ~/local
+  $ ./configure --prefix=$HOME/local/node
+  $ make
+  $ make install
+  $ echo "export PATH=\$HOME/local/node/bin:\$PATH" >> ~/.bashrc
+  $ echo "export NODE_PATH=\$HOME/local/node/lib/node_modules/" >> ~/.bashrc
+  $ export PATH=$HOME/local/node/bin:$PATH
+  $ export NODE_PATH=$HOME/local/node/lib/node_modules/
   #+end_src
 
   Install npm (more info [[http://npmjs.org][here]] and [[https://github.com/isaacs/npm/blob/master/doc/faq.md#readme][here]]):
 
   #+begin_src sh
-$ curl http://npmjs.org/install.sh | sh
+  $ curl http://npmjs.org/install.sh | sh
   #+end_src 
 
   Install socket.io (more info [[http://socket.io][here]]):
 
   #+begin_src sh
-$ npm -g install socket.io
+  $ npm -g install socket.io
   #+end_src
 
   Install other node.js modules:
 
   #+begin_src sh
-$ npm -g install mime
+  $ npm -g install mime
   #+end_src
   
 * JS Libraries Used
