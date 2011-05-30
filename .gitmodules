@@ -4,3 +4,6 @@
 [submodule "vendor/Audiolet"]
 	path = vendor/Audiolet
 	url = git://github.com/automata/Audiolet.git
+[submodule "vendor/raphael"]
+	path = vendor/raphael
+	url = https://github.com/DmitryBaranovskiy/raphael.git
