@@ -8,7 +8,7 @@
   
   Install node.js (more info [[https://github.com/joyent/node/wiki/Installation][here]]):
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
   $ git clone --depth 1 https://github.com/joyent/node.git
   $ cd node
   $ export JOBS=2 # optional, sets number of parallel commands.
@@ -20,25 +20,25 @@
   $ echo "export NODE_PATH=\$HOME/local/node/lib/node_modules/" >> ~/.bashrc
   $ export PATH=$HOME/local/node/bin:$PATH
   $ export NODE_PATH=$HOME/local/node/lib/node_modules/
-  #+end_src
+  #+END_SRC
 
   Install npm (more info [[http://npmjs.org][here]] and [[https://github.com/isaacs/npm/blob/master/doc/faq.md#readme][here]]):
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
   $ curl http://npmjs.org/install.sh | sh
-  #+end_src 
+  #+END_SRC 
 
   Install socket.io (more info [[http://socket.io][here]]):
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
   $ npm -g install socket.io
-  #+end_src
+  #+END_SRC
 
   Install other node.js modules:
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
   $ npm -g install mime
-  #+end_src
+  #+END_SRC
   
 * JS Libraries Used
   - Audiolet
@@ -50,17 +50,17 @@
   - jQuery UI
 * Installation
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
 $ git clone git://github.com/automata/li7e.git --recursive
-  #+end_src
+  #+END_SRC
 
 * Using
 
   Run the HTTP server:
 
-  #+begin_src sh
+  #+BEGIN_SRC sh
 $ node sever.js
-  #+end_src
+  #+END_SRC
 
   And point your browser (Firefox 4.0 or latest Chrome build) to http://localhost:8080.
 
