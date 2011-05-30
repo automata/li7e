@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <title> LI7E </title>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <script src="lib/codemirror/mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="lib/jscolors.css">
+
+    <!-- Audiolet -->
+    <script src="lib/mootools/mootools-core-1.3-full-nocompat.js"></script>
+    <script src="lib/audiolet/Audiolet.js"></script>
+
+    <!-- jquery UI -->
+    <link type="text/css" href="lib/css/ui-darkness/jquery-ui-1.8.9.custom.css" rel="stylesheet" />     
+    <script type="text/javascript" src="lib/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery-ui-1.8.9.custom.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="li7e-client.css" />
+    
+    <script type="text/javascript">
+      var run_code = function() {
+        eval(document.getElementById('code').value);
+      }
+    </script>
+    
+  </head>
+  <body>
+
+    <div class="editor"><textarea id="code" name="code">
+
+    var audiolet = new Audiolet();
+
+    audiolet.scheduler.setTempo(120);
+
+    // creating an instrument
+
+    // borrowed from @o_amp_o's code
+    var HighSynth = new Class({
+        Extends: AudioletGroup,
+        initialize: function(audiolet) {
+            AudioletGroup.prototype.initialize.apply(this, [audiolet, 0, 1]);
+           
+            // Triangle base oscillator
+            this.triangle = new Triangle(audiolet);
+
+            // Note on trigger
+            this.trigger = new TriggerControl(audiolet);
+
+            // Gain envelope
+            this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.2, 0.2);
+            this.gainEnvMulAdd = new MulAdd(audiolet, 0.3);
+            this.gain = new Gain(audiolet);
+
+            // Connect oscillator
+            this.triangle.connect(this.gain);
+            
+            // Connect trigger and envelope
+            this.trigger.connect(this.gainEnv);
+            this.gainEnv.connect(this.gainEnvMulAdd);
+            this.gainEnvMulAdd.connect(this.gain, 0, 1);
+            this.gain.connect(this.outputs[0]);
+        }
+    });
+
+    var synths = [];
+    var patterns = [];
+
+    var duration = new PProxy(new PSequence([1], Infinity));
+
+    for (i=0; i<8; i++) {
+        synths[i] = new HighSynth(audiolet)
+        synths[i].connect(audiolet.output);
+        patterns[i] = new PProxy(new PSequence([400, 500, 500, 400, 400, 500, 600, 400], Infinity));
+        audiolet.scheduler.play([patterns[i]], duration,
+                                function (frequency) {
+                                    this.trigger.trigger.setValue(1);
+                                    this.triangle.frequency.setValue(frequency);
+                                }.bind(synths[i]));
+    }
+
+                   </textarea>
+      <button onclick="run_code();" class="roundbutton">Run</button>
+    </div>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        matchBrackets: true
+      });
+
+      $( ".editor" ).draggable();
+    </script>
+
+  </body>
+</html>
