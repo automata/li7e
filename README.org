@@ -55,6 +55,8 @@
 $ git clone git://github.com/automata/li7e.git --recursive
   #+END_SRC
 
+* Documentation
+  Please refer to the anottated source code on [[docs/li7e.html][docs/li7e.html]].
 * Using
 
   Run the HTTP server:
