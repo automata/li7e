@@ -48,6 +48,7 @@
   - socket.io
   - jQuery
   - jQuery UI
+  - three.js
 * Installation
 
   #+BEGIN_SRC sh
