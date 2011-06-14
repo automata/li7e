@@ -31,11 +31,30 @@ LI7E.startProcessing = function (canvasId) {
     }
 };
 
+// Or we can use a more POO approach...
+LI7E.ProcessingCanvas = function (canvasId) {
+    this.canvasId = canvasId;
+    this.canvasElement = document.getElementById(canvasId);
+    this.processing = new Processing(this.canvasElement);
+};
+
 // Audio
 // -----
 
+// A list to store instances of audio outputs
+LI7E.audioOutputs = []
+
+LI7E.startAudiolet = function (audioOutputId) {
+    if (LI7E.audioOutputs[audioOutputId] === undefined) {
+        LI7E.audioOutputs[audioOutputId] = new Audiolet();
+    }
+};
+
 // Physical Engine
 // ---------------
+
+// Scheduller
+// ----------
 
 // DSL
 // ---
