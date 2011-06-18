@@ -7,3 +7,6 @@
 [submodule "vendor/raphael"]
 	path = vendor/raphael
 	url = https://github.com/DmitryBaranovskiy/raphael.git
+[submodule "vendor/jison"]
+	path = vendor/jison
+	url = git://github.com/zaach/jison.git

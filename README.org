@@ -37,7 +37,7 @@
   Install other node.js modules:
 
   #+BEGIN_SRC sh
-  $ npm -g install mime
+  $ npm -g install mime jison
   #+END_SRC
   
 * JS Libraries Used (for now)
