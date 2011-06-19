@@ -2,23 +2,29 @@
 var li7elang = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expressions":3,"e":4,"EOF":5,"->":6,"IDENT":7,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",6:"->",7:"IDENT"},
-productions_: [0,[3,2],[4,3],[4,1]],
+symbols_: {"error":2,"expressions":3,"expr":4,"EOF":5,"DSP_COMMAND":6,"expr_dsp":7,"CTRL_COMMAND":8,"expr_ctrl":9,"CONNECT":10,"instancia":11,"inst":12,"INSTANCE":13,"classe":14,"VAR":15,".":16,"=":17,"[":18,"matriz":19,"]":20,"^":21,"time":22,"NUMBER":23,"INFINITY":24,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",6:"DSP_COMMAND",8:"CTRL_COMMAND",10:"CONNECT",13:"INSTANCE",15:"VAR",16:".",17:"=",18:"[",20:"]",21:"^",23:"NUMBER",24:"INFINITY"},
+productions_: [0,[3,2],[4,2],[4,2],[7,3],[7,1],[11,3],[12,1],[14,1],[9,9],[19,2],[19,1],[22,1],[22,1]],
 performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1: print($$[$0-1]); 
 break;
-case 2: print(e, 'conectou a', e); 
+case 7: this.$ = yytext; 
 break;
-case 3: print(yytext, 'ident'); 
+case 8: this.$ = yytext; 
+break;
+case 11:this.$ = Number(yytext);
+break;
+case 12:this.$ = Number(yytext);
+break;
+case 13:this.$ = Number(yytext);
 break;
 }
 },
-table: [{3:1,4:2,7:[1,3]},{1:[3]},{5:[1,4],6:[1,5]},{5:[2,3],6:[2,3]},{1:[2,1]},{4:6,7:[1,3]},{5:[2,2],6:[2,2]}],
-defaultActions: {4:[2,1]},
+table: [{3:1,4:2,6:[1,3],8:[1,4]},{1:[3]},{5:[1,5]},{7:6,11:7,12:8,15:[1,9]},{9:10,15:[1,11]},{1:[2,1]},{5:[2,2],10:[1,12]},{5:[2,5],10:[2,5]},{13:[1,13]},{13:[2,7]},{5:[2,3]},{16:[1,14]},{7:15,11:7,12:8,15:[1,9]},{14:16,15:[1,17]},{15:[1,18]},{5:[2,4],10:[2,4]},{5:[2,6],10:[2,6]},{5:[2,8],10:[2,8]},{17:[1,19]},{18:[1,20]},{19:21,23:[1,22]},{20:[1,23]},{19:24,20:[2,11],23:[1,22]},{21:[1,25]},{20:[2,10]},{22:26,23:[1,28],24:[1,27]},{5:[2,9]},{5:[2,12]},{5:[2,13]}],
+defaultActions: {5:[2,1],9:[2,7],10:[2,3],24:[2,10],26:[2,9],27:[2,12],28:[2,13]},
 parseError: function parseError(str, hash) {
     throw new Error(str);
 },
@@ -323,40 +329,44 @@ var YYSTATE=YY_START
 switch($avoiding_name_collisions) {
 case 0:/* ignore whitespaces */
 break;
-case 1:return 'DSP_COMMAND';
+case 1:/* ignore comment */
 break;
-case 2:return 'CTRL_COMMAND';
+case 2:return 6;
 break;
-case 3:return 'CONNECT';
+case 3:return 8;
 break;
-case 4:return ':';
+case 4:return 10;
 break;
-case 5:return '.';
+case 5:return 13;
 break;
-case 6:return '=';
+case 6:return 16;
 break;
-case 7:return '[';
+case 7:return 17;
 break;
-case 8:return ']';
+case 8:return 18;
 break;
-case 9:return '(';
+case 9:return 20;
 break;
-case 10:return ')';
+case 10:return '(';
 break;
-case 11:return '^';
+case 11:return ')';
 break;
-case 12:return '*';
+case 12:return 21;
 break;
-case 13:return 'NUMBER';
+case 13:return '*';
 break;
-case 14:return 7;
+case 14:return 24;
 break;
-case 15:return 5;
+case 15:return 23;
+break;
+case 16:return 15;
+break;
+case 17:return 5;
 break;
 }
 };
-lexer.rules = [/^\s+/,/^~/,/^!/,/^->/,/^:/,/^\./,/^=/,/^\[/,/^\]/,/^\(/,/^\)/,/^\^/,/^\*/,/^[0-9]+(\.[0-9]+)?/,/^[a-zA-Z]+/,/^$/];
-lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"inclusive":true}};return lexer;})()
+lexer.rules = [/^\s+/,/^\/\/.*/,/^~/,/^!/,/^->/,/^:/,/^\./,/^=/,/^\[/,/^\]/,/^\(/,/^\)/,/^\^/,/^\*/,/^Infinity\b/,/^[0-9]+(\.[0-9]+)?/,/^[a-zA-Z]+/,/^$/];
+lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"inclusive":true}};return lexer;})()
 parser.lexer = lexer;
 return parser;
 })();
