@@ -34,16 +34,17 @@
 %%
 
 program
-	: program_section EOF 
+	: expr_stmt EOF 
           {{ var foo = ['Program'].concat($1);
              console.log(foo);
              return foo; }}
-        | program_section program
-        ; 
+         ; 
 
-program_section
-        : expr_ctrl
-        | expr_dsp
+expr_stmt
+        : expr_stmt NEWLINE
+        | expr_stmt expr
+        | expr
+          {{ $$ = ['Expr'].concat($1); }}
 	;
 
 expr
