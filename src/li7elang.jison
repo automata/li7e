@@ -4,9 +4,10 @@
 %%
 
 "//".*                  /* ignore comment */
-"->"                    return 'CONNECT';
+("->"|"=>")             return 'CONNECT';
 ":"                     return 'INSTANCE';
 "."                     return '.';
+","                     return ',';
 "="                     return '=';
 "["                     return '[';
 "]"                     return ']';
@@ -28,62 +29,64 @@
 %left '^'
 %left 'CONNECT'
 
-%start program
+%start script
 
 /*** language grammar ***/
 %%
 
-program
-	: program_section EOF 
-          {{ var foo = ['Program'].concat($1);
-             console.log(foo);
-             return foo; }}
-        | program_section program
+script
+	: expr_stmt EOF 
+          { return ['Script'].concat([$1]); }
         ; 
 
-program_section
-        : expr_ctrl
-        | expr_dsp
+expr_stmt
+        : expr_stmt NEWLINE
+        | expr
+          { $$ = [$1]; }
+        | expr_stmt expr
+          { $$ = $1.concat([$2]); }
 	;
 
 expr
 	: expr_ctrl
-          {{ $$ = ['Ctrl', $1]; $$ = $1; console.log($$); }}
+          { $$ = ['CtrlExpressions', $1]; }
 	| expr_dsp
-          {{ $$ = ['Dsp', $1]; $$ = $1; console.log($$); }}
+          { $$ = ['DspExpressions', $1]; }
 	;
 
 expr_dsp
-	: expr_dsp CONNECT instancia
-          {{ $$ = ['Connection', {from: $1, to: $3}]; }}
-        | instancia
+        : instance
+          { $$ = [$instance]; }
+	| expr_dsp CONNECT instance
+          { $$ = $1.concat([$3]); }
 	;
 
-instancia
+instance
 	: VAR INSTANCE VAR 
-          {{ $$ = ['Instance', {obj: $1, class: $3}]; }}
+          { $$ = ['Instance', {obj: $1, class: $3}]; }
 	;
 
 expr_ctrl
 	: VAR '.' msg 
-          {{ $$ = ['Message', {target: $1, message: $3}]; }}
+          { $$ = [['Message', {target: $1, message: $3}]]; }
 	;
 
 msg
-        : VAR '=' '[' matriz ']' '^' time
-          {{ $$ = ['Attrib', {attribute: $1, pattern: $matriz, at: $time}]; }}
+        : VAR '=' '[' list ']' '^' time
+          { $$ = ['Attrib', {attribute: $1, pattern: $list, at: $time}]; }
         ;
 
-matriz
-	: NUMBER matriz
-	| NUMBER 
-          {{ $$ = Number(yytext); }}
-	;
+list
+	: NUMBER
+          { $$ = [Number(yytext)]; } 
+        | list ',' NUMBER
+          { $$ = $1.concat(Number($3)); }
+        ;
 
 time
 	: INFINITY 
-          {{ $$ = yytext; }}
+          { $$ = yytext; }
 	| NUMBER 
-          {{ $$ = Number(yytext); }}
+          { $$ = Number(yytext); }
 	;
 

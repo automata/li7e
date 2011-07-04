@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title> LI7E </title>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="css/codemirror/codemirror.css">
+    <script src="vendor/codemirror2/lib/codemirror.js"></script>
+    <script src="vendor/codemirror2/mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="css/codemirror/javascript.css">
+
+    <!-- Audiolet -->
+    <script src="vendor/Audiolet/src/mootools/mootools-core-1.3-full-nocompat.js"></script>
+    <script src="vendor/Audiolet/src/audiolet/Audiolet.min.js"></script>
+
+    <!-- jquery UI -->
+    <link type="text/css" href="vendor/jquery-ui-themes/smoothness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />     
+    <script type="text/javascript" src="vendor/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery-ui-1.8.13.custom.min.js"></script>
+
+    <!-- processing.js -->
+    <script type="text/javascript" src="vendor/processing-1.2.1.js"></script>
+ 
+    <!-- Raphael -->
+    <script type="text/javascript" src="vendor/raphael/raphael-min.js"></script>
+
+    <!-- LI7E -->
+    <link type="text/css" rel="stylesheet" href="css/client.css" />
+    <script type="text/javascript" src="src/li7e.js"></script>
+    <script type="text/javascript" src="src/li7elang.js"></script>
+    
+  </head>
+  <body>
+    <div class="canvas">
+      <canvas id="canvas-1"></canvas>
+    </div>
+    
+    <div class="editor">
+      <textarea id="code" name="code">
+saw:Saw -> output:Output
+
+saw.frequency = [55, 55, 98, 98, 73, 73, 98, 98] ^ Infinity
+      </textarea>
+      <button onclick="eval(editor.getValue());" class="roundbutton">Eval</button>
+      <button onclick="eval(editor.getSelection());" class="roundbutton">Eval Region</button>
+      <button onclick="LI7E.eval(li7elang.parse(editor.getValue()));" class="roundbutton">Test grammar</button>
+    </div>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        matchBrackets: true
+      });
+
+      $(".editor").draggable();
+      $("#canvas-1").draggable();
+    </script>
+
+  </body>
+</html>

@@ -1,7 +1,0 @@
-saw:Saw -> filter:LowPassFilter -> gain:Gain -> output:Output
-frequencyLFO:Sine -> filterMA:MulAdd -> filter:LowPassFilter
-env:ADSREnvelope -> gain:Gain
-
-saw.frequency = [55 55 98 98 73 73 98 98] ^ Infinity
-frequencyLFO.frequency = [2 4 6 8]^Infinity
-env.gate = [1 0]^Infinity

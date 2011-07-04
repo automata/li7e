@@ -12,7 +12,7 @@ server = http.createServer(function(req, res){
     switch (serverPath){
     case '/':
         res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write('<h1>LI7E</h1><ul><li><a href="client.html">Client 01</a></li></ul>');
+        res.write('<h1>LI7E</h1><ul><li><a href="client.html">Test Processing.JS</a></li><li><a href="test_li7elang.html">Test LI7E Lang</a></li><li><a href="docs/li7e.html">Documentation</a></li></ul>');
         res.end();
         break;
       
