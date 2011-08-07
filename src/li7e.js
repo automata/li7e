@@ -38,6 +38,22 @@ LI7E.ProcessingCanvas = function (canvasId) {
     this.processing = new Processing(this.canvasElement);
 };
 
+// Scheduller
+
+// http://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
+LI7E.animLoop = function ( render, element ) {
+    var running, lastFrame = +new Date;
+    function loop( now ) {
+        // stop the loop if render returned false
+        if ( running !== false ) {
+            requestAnimationFrame( loop, element );
+            running = render( now - lastFrame );
+            lastFrame = now;
+        }
+    }
+    loop( lastFrame );
+}
+
 // Audio
 // -----
 
@@ -60,6 +76,8 @@ LI7E.startAudiolet = function (audioOutputId) {
 // ---------
 
 LI7E.eval = function (script) {
+    console.log("LI7E script", script);
+
     var audiolet = new Audiolet();
     // Just checking if the first element of the script parse list is 'Script'
     if (script[0] !== 'Script') {
@@ -68,7 +86,7 @@ LI7E.eval = function (script) {
         // Evaluating each line of the script
         var lines = script[1];
         for (var i=0; i<lines.length; i++) {
-            // Each line is a list of the kind ['Type', [{Exp1}, {Exp2}, ...]]
+            // Each line is a list of kind ['Type', [{Exp1}, {Exp2}, ...]]
             var type = lines[i][0];
             var exprs = lines[i][1];
 
@@ -81,6 +99,7 @@ LI7E.eval = function (script) {
                     var from = exprs[j];
                     var to = exprs[j+1];
 
+//  [["Instance", Object { obj="frequencyLFO", class="Sine"}]
                     // Every element on the connection pair must be an Instance
                     // of some JS class
                     if ((from[0] === 'Instance') && (to[0] === 'Instance')) {
