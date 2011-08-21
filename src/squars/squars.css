@@ -18,8 +18,8 @@ html, body {
 	
 	margin-left:auto;
 	margin-right:auto;
-	width:630px;
-	height: 500px;
+	width:600px;
+	height: 480px;
 	padding: 20px;
 	background-color:#3B3B3B;
 
@@ -48,7 +48,7 @@ html, body {
 
 #squars
 {
-	border-radius:1em; background-color:#3B3B3B; padding:10px;
+	border-radius:1.5em; background-color:#3B3B3B; padding:5px;
 }
 
 a {
