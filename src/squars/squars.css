@@ -1,28 +1,17 @@
-	
 html, body { 
-    margin: 0; 
-    padding: 0; 
-    height: 100%; 
-    position: relative;
-    overflow: auto;
-
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#666666), color-stop(.6,#333));
-
     background-image: -moz-linear-gradient(25% 93% 334deg,#424242, #737373, #DEDEDE 100%);
-    
 }
 
-#box
-{
-	margin-top:50px;
-	
+#box{
+	margin-top:50px;	
 	margin-left:auto;
 	margin-right:auto;
 	width:600px;
 	height: 480px;
 	padding: 20px;
-	background-color:#3B3B3B;
 
+	background-color:#3B3B3B;
     	background-image: -webkit-gradient(
         	linear,
         	left bottom,
@@ -43,12 +32,12 @@ html, body {
         column-count:2; 
         column-gap:3em;
 	text-align: center;
-		
 }
 
-#squars
-{
-	border-radius:1.5em; background-color:#3B3B3B; padding:5px;
+#squars{
+	border-radius:1.5em; 
+	background-color:#3B3B3B; 
+	padding:5px;
 }
 
 a {

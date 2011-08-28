@@ -3,8 +3,8 @@ var padding = 6;
 var fps = 15; // fastest fps to allow (to prevent less cpu usage)
 var squarsWidth = 450; // Width of canvas
 var color = true; // Use colours or Black + White
-var rounded = true; // Use rounded corners?
-var smoke = true;
+var rounded = false; // Use rounded corners?
+var smoke = false;
 var palette = false; // paletted colors or random
 var pitchOffset = 0;
 
