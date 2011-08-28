@@ -325,18 +325,18 @@ function squareClicked(x,y) {
 					padswitches[clickgrid.o]= clicked.toggle;
 
 					var tmp = patterns[clickgrid.gx].pattern;
-					$('#jdebug').html(clicked.toggle+" " +padswitches[clickgrid.o] +" "+ clickgrid.gx + " "+ clickgrid.gy);
+					//$('#jdebug').html(clicked.toggle+" " +padswitches[clickgrid.o] +" "+ clickgrid.gx + " "+ clickgrid.gy);
 
 					// start the audio
 					if(clicked.toogle && padswitches[clickgrid.o] ){
-						$('#jdebug').html("Clicked");
+						//$('#jdebug').html("Clicked");
 						var note = majorScale[(Math.abs(synthId - 7))];
 						tmp.list[clickgrid.gy] = note; 
 						//socket.send(id[1] + ' ' + id[2] + ' 127');
 					}
 					// cancel the audio
 					if(!clicked.toogle && !padswitches[clickgrid.o]){
-						$('#jdebug').html("UnClicked");
+						//$('#jdebug').html("UnClicked");
 						tmp.list[clickgrid.gy] = 0;
 						//socket.send(id[1] + ' ' + id[2] + ' 0');
 					}
