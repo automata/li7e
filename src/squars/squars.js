@@ -23,55 +23,6 @@ var padswitches = [];
 var waves = []; // Push 'wave' particles here.
 var interval = Math.round(1000/fps);
 
-// Audiolet
-    var majorScale = [ 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
-    var audiolet = new Audiolet();
-    audiolet.scheduler.setTempo(120);
-
-    // creating an instrument    // borrowed from @o_amp_o's code
-    var HighSynth = new Class({
-        Extends: AudioletGroup,
-        initialize: function(audiolet) {
-            AudioletGroup.prototype.initialize.apply(this, [audiolet, 0, 1]);
-
-            // Triangle base oscillator
-            this.triangle = new Triangle(audiolet);
-
-            // Note on trigger
-            this.trigger = new TriggerControl(audiolet);
-
-            // Gain envelope
-            this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.2, 0.2);
-            this.gainEnvMulAdd = new MulAdd(audiolet, 0.3);
-            this.gain = new Gain(audiolet);
-
-            // Connect oscillator
-            this.triangle.connect(this.gain);
-            
-            // Connect trigger and envelope
-            this.trigger.connect(this.gainEnv);
-            this.gainEnv.connect(this.gainEnvMulAdd);
-            this.gainEnvMulAdd.connect(this.gain, 0, 1);
-            this.gain.connect(this.outputs[0]);
-        }
-    });
-
-    var synths = [];
-    var patterns = [];
-    var duration = new PProxy(new PSequence([1], Infinity));
-
-    for (i=0; i<16; i++) {
-        synths[i] = new HighSynth(audiolet)
-        synths[i].connect(audiolet.output);
-        patterns[i] = new PProxy(new PSequence([0, 0, 0, 0, 0, 0, 0, 0], Infinity));
-        audiolet.scheduler.play([patterns[i]], duration,
-                                function (frequency) {
-                                    this.trigger.trigger.setValue(1);
-
-                                    this.triangle.frequency.setValue(frequency);
-                                }.bind(synths[i]));
-    }
-
 function init() {
 		 canvas = document.getElementById('squars'); //$('#squars')[0]
 		 canvas.width = canvas.style.width = squarsWidth;
@@ -106,6 +57,8 @@ function init() {
 		 for (var i=0; i<flapLength*flapLength; i++) {
 		 	 padswitches[i] = false;
 		 }
+
+
 }
 
 var row=0;
@@ -397,21 +350,63 @@ function pitchDown() {
 	//$('#sionProject')[0].as_pitch(pitchOffset);
 }
 
-
-// Color graidents? Google T shirt?
 $(document).ready(function(){
 	init();
-	/*
-	$(window).bind('resize',function(e) {
-			initNav();
+
+	// Audiolet
+	var majorScale = [ 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
+	var audiolet = new Audiolet();
+	audiolet.scheduler.setTempo(120);
+
+	// creating an instrument    // borrowed from @o_amp_o's code
+	var HighSynth = new Class({
+	Extends: AudioletGroup,
+	initialize: function(audiolet) {
+	AudioletGroup.prototype.initialize.apply(this, [audiolet, 0, 1]);
+
+	// Triangle base oscillator
+	this.triangle = new Triangle(audiolet);
+
+	// Note on trigger
+	this.trigger = new TriggerControl(audiolet);
+
+	// Gain envelope
+	this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.2, 0.2);
+	this.gainEnvMulAdd = new MulAdd(audiolet, 0.3);
+	this.gain = new Gain(audiolet);
+
+	// Connect oscillator
+	this.triangle.connect(this.gain);
+
+	// Connect trigger and envelope
+	this.trigger.connect(this.gainEnv);
+	this.gainEnv.connect(this.gainEnvMulAdd);
+	this.gainEnvMulAdd.connect(this.gain, 0, 1);
+	this.gain.connect(this.outputs[0]);
+	}
 	});
-	*/
-	
-	
+
+	var synths = [];
+	var patterns = [];
+	var duration = new PProxy(new PSequence([1], Infinity));
+
+	for (i=0; i<16; i++) {
+
+		synths[i] = new HighSynth(audiolet)
+		synths[i].connect(audiolet.output);
+		patterns[i] = new PProxy(new PSequence([0, 0, 0, 0, 0, 0, 0, 0], Infinity));
+		audiolet.scheduler.play([patterns[i]], duration,
+				function (frequency) {
+				    this.trigger.trigger.setValue(1);
+
+				    this.triangle.frequency.setValue(frequency);
+				}.bind(synths[i]));
+	}
+
 	$(canvas).mousedown(function(e) {
 		var x = e.pageX - $(this).offset().left;
 		var y = e.pageY - $(this).offset().top  ;
-		
+
 		// Check if clicked
 		clicked.pressed = true;
 		squareClicked(x,y);
@@ -422,47 +417,46 @@ $(document).ready(function(){
 		clicked.y = 0;
 		clicked.lastGrid = null;
 		clicked.toggle = null;
-				
-		//$('#jdebug').html("mouseup"); 
+		
 	}).mousemove(function(e) {
 	/* 
+
+	var newd = new Date();
+	if ((newd.getTime()-oldd.getTime())<interval) {
+		return ;
+		// this prevents using too much cpu cycles
+	}	
+	oldd = newd;
+	*/
+
+	var x = e.pageX - $(this).offset().left ;
+	var y = e.pageY - $(this).offset().top ;
+
+	//$('#jdebug').html(x+" "+y + getGrid(x,y));
+
+	if (clicked.out && !outBounds) {				
+		//$('#jdebug').html("in and dragged" + clicked.out + "outBounds"+outBounds);
+		clicked.pressed = true;
+		clicked.out = false
 	
-		var newd = new Date();
-		if ((newd.getTime()-oldd.getTime())<interval) {
-			return ;
-			// this prevents using too much cpu cycles
-		}	
-		oldd = newd;
-		*/
-		
-		var x = e.pageX - $(this).offset().left ;
-		var y = e.pageY - $(this).offset().top ;
-		
-		//$('#jdebug').html(x+" "+y + getGrid(x,y));
-		
-		if (clicked.out && !outBounds) {				
-			//$('#jdebug').html("in and dragged" + clicked.out + "outBounds"+outBounds);
-			clicked.pressed = true;
-			clicked.out = false
-			
-		} else if (clicked.pressed && outBounds){
-			clicked.pressed = false;
-			clicked.out = true;
-			//$('#jdebug').html("stop drag");
-		}
-		
-		if (clicked.pressed) {
-			squareClicked(x,y);
-			
+	} else if (clicked.pressed && outBounds){
+		clicked.pressed = false;
+		clicked.out = true;
+		//$('#jdebug').html("stop drag");
+	}
+
+	if (clicked.pressed) {
+		squareClicked(x,y);
+	
+	} else {
+
+		if (getGrid(x,y)!=null) {
+			// If mouse over draggable box change cursor
+			$('body').css({cursor:'pointer'}); // Or move
 		} else {
-		
-			if (getGrid(x,y)!=null) {
-				// If mouse over draggable box change cursor
-				$('body').css({cursor:'pointer'}); // Or move
-			} else {
-				$('body').css({cursor:'auto'}); //#squars
-			}
+			$('body').css({cursor:'auto'}); //#squars
 		}
+	}
 		
 		
 	}).mouseout(function(e) {
