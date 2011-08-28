@@ -10,7 +10,7 @@ html, body {
 	width:600px;
 	height: 480px;
 	padding: 20px;
-
+/*
 	background-color:#3B3B3B;
     	background-image: -webkit-gradient(
         	linear,
@@ -24,7 +24,7 @@ html, body {
         	rgb(0,0,0) 6%,
         	rgb(47,48,47) 58%
     	);
-	
+*/	
 	box-shadow:4px 7px 10px #333333;
 	border-radius:2em; 
 	background-color: #030303; 
@@ -35,7 +35,7 @@ html, body {
 }
 
 #squars{
-	border-radius:1.5em; 
+	border-radius:1em; 
 	background-color:#3B3B3B; 
 	padding:5px;
 }

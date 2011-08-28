@@ -23,6 +23,55 @@ var padswitches = [];
 var waves = []; // Push 'wave' particles here.
 var interval = Math.round(1000/fps);
 
+// Audiolet
+    var majorScale = [ 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
+    var audiolet = new Audiolet();
+    audiolet.scheduler.setTempo(120);
+
+    // creating an instrument    // borrowed from @o_amp_o's code
+    var HighSynth = new Class({
+        Extends: AudioletGroup,
+        initialize: function(audiolet) {
+            AudioletGroup.prototype.initialize.apply(this, [audiolet, 0, 1]);
+
+            // Triangle base oscillator
+            this.triangle = new Triangle(audiolet);
+
+            // Note on trigger
+            this.trigger = new TriggerControl(audiolet);
+
+            // Gain envelope
+            this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.2, 0.2);
+            this.gainEnvMulAdd = new MulAdd(audiolet, 0.3);
+            this.gain = new Gain(audiolet);
+
+            // Connect oscillator
+            this.triangle.connect(this.gain);
+            
+            // Connect trigger and envelope
+            this.trigger.connect(this.gainEnv);
+            this.gainEnv.connect(this.gainEnvMulAdd);
+            this.gainEnvMulAdd.connect(this.gain, 0, 1);
+            this.gain.connect(this.outputs[0]);
+        }
+    });
+
+    var synths = [];
+    var patterns = [];
+    var duration = new PProxy(new PSequence([1], Infinity));
+
+    for (i=0; i<16; i++) {
+        synths[i] = new HighSynth(audiolet)
+        synths[i].connect(audiolet.output);
+        patterns[i] = new PProxy(new PSequence([0, 0, 0, 0, 0, 0, 0, 0], Infinity));
+        audiolet.scheduler.play([patterns[i]], duration,
+                                function (frequency) {
+                                    this.trigger.trigger.setValue(1);
+
+                                    this.triangle.frequency.setValue(frequency);
+                                }.bind(synths[i]));
+    }
+
 function init() {
 		 canvas = document.getElementById('squars'); //$('#squars')[0]
 		 canvas.width = canvas.style.width = squarsWidth;
@@ -67,11 +116,12 @@ function paintRow() {
 	return false;
 }
 
-var strokeButtonBorder = "rgba(20,20,20,1)";
-var fillClickedButton = "rgba(130,130,130,0.8)";
+//var strokeButtonBorder = "rgba(100,100,100,1)";
+var strokeButtonBorder = "rgba(20,20,20,0)";
+var fillClickedButton = "rgba(100,100,100,0.8)";
 var fillUnclickedButton = "rgba(60,60,60,0.5)";
 var fillBackground = "rgba(0,0,0,1)";
-var fillHighlightColor = "rgba(256,256,256,1)"
+var fillHighlightColor = "rgba(255,255,255,1)"
 
 // This paintRow function is called when Beat is made.
 function paintRow2(row) {
@@ -131,7 +181,7 @@ function paintOneGrid(e) {
 	 	} else {
 	 		canvasSquars.fillRect(te.x,te.y,gridwidth,gridwidth);
 	 	}
-	} else { // if the button isn´t clicked
+	} else { // if the button isnt clicked
 	 	 canvasSquars.fillStyle = fillUnclickedButton; 
 	 	 if (rounded) {
 	 	 	 canvasSquars.restore();
@@ -272,13 +322,28 @@ function squareClicked(x,y) {
 					//}
 					//var ret = $('#sionProject')[0].as_toggle(clickgrid.gx, clickgrid.gy);
 					
-					$('#jdebug').html(clicked.toggle+" " +clickgrid.o +" "+ clickgrid.gx + " "+ clickgrid.gy);
-					
 					padswitches[clickgrid.o]= clicked.toggle;
-					// If clicked toogle == true and o == true, if clicked again toogle == false and o == false
-					// paint the square
-					paintOneGrid(clickgrid.o);
-				  
+
+					var tmp = patterns[clickgrid.gx].pattern;
+					$('#jdebug').html(clicked.toggle+" " +padswitches[clickgrid.o] +" "+ clickgrid.gx + " "+ clickgrid.gy);
+
+					// start the audio
+					if(clicked.toogle && padswitches[clickgrid.o] ){
+						$('#jdebug').html("Clicked");
+						var note = majorScale[(Math.abs(synthId - 7))];
+						tmp.list[clickgrid.gy] = note; 
+						//socket.send(id[1] + ' ' + id[2] + ' 127');
+					}
+					// cancel the audio
+					if(!clicked.toogle && !padswitches[clickgrid.o]){
+						$('#jdebug').html("UnClicked");
+						tmp.list[clickgrid.gy] = 0;
+						//socket.send(id[1] + ' ' + id[2] + ' 0');
+					}
+
+				        patterns[clickgrid.gx].pattern = tmp;
+
+					paintOneGrid(clickgrid.o);				  
 					clicked.lastGrid = clickgrid;   
 				}
 			}
@@ -445,59 +510,3 @@ function stop() {
 	}
 	
 }
-
-
-// Audiolet
-
-
-    var majorScale = [ 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
-
-    var audiolet = new Audiolet();
-
-    audiolet.scheduler.setTempo(120);
-
-    // creating an instrument
-
-    // borrowed from @o_amp_o's code
-    var HighSynth = new Class({
-        Extends: AudioletGroup,
-        initialize: function(audiolet) {
-            AudioletGroup.prototype.initialize.apply(this, [audiolet, 0, 1]);
-           
-            // Triangle base oscillator
-            this.triangle = new Triangle(audiolet);
-
-            // Note on trigger
-            this.trigger = new TriggerControl(audiolet);
-
-            // Gain envelope
-            this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.2, 0.2);
-            this.gainEnvMulAdd = new MulAdd(audiolet, 0.3);
-            this.gain = new Gain(audiolet);
-
-            // Connect oscillator
-            this.triangle.connect(this.gain);
-            
-            // Connect trigger and envelope
-            this.trigger.connect(this.gainEnv);
-            this.gainEnv.connect(this.gainEnvMulAdd);
-            this.gainEnvMulAdd.connect(this.gain, 0, 1);
-            this.gain.connect(this.outputs[0]);
-        }
-    });
-
-    var synths = [];
-    var patterns = [];
-
-    var duration = new PProxy(new PSequence([1], Infinity));
-
-    for (i=0; i<16; i++) {
-        synths[i] = new HighSynth(audiolet)
-        synths[i].connect(audiolet.output);
-        patterns[i] = new PProxy(new PSequence([0, 0, 0, 0, 0, 0, 0, 0], Infinity));
-        audiolet.scheduler.play([patterns[i]], duration,
-                                function (frequency) {
-                                    this.trigger.trigger.setValue(1);
-                                    this.triangle.frequency.setValue(frequency);
-                                }.bind(synths[i]));
-    }
