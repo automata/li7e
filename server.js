@@ -3,8 +3,7 @@ var fs = require('fs'),
     url = require('url'),
     http = require('http'),
     path = require('path'),
-    mime = require('mime'),
-    io = require('socket.io');
+    mime = require('mime');
 
 server = http.createServer(function(req, res){
     var serverPath = url.parse(req.url).pathname;
@@ -44,19 +43,18 @@ server = http.createServer(function(req, res){
 
 server.listen(8080);
 
-var io = io.listen(server), tileObjs = [];
+var io = require('socket.io').listen(server), 
+	tileObjs = [];
 
-io.on('connection', function(client){
-    client.broadcast({ connection: client.sessionId});
-    
+io.sockets.on('connection', function(client){
+    client.broadcast.emit({ connection: client.sessionId});
     client.on('message', function(message){
         var msg = { message: [client.sessionId, message] };
         console.log(msg);
         tileObjs.push(msg);
         client.broadcast(msg);
     });
-
     client.on('disconnect', function(){
         client.broadcast({ disconnection: client.sessionId});
     });
-});
+});	
