@@ -7,10 +7,10 @@ function message(obj){
 };
 
 function send(){
-	var val = document.getElementById('text').value;
+	var val = document.getElementById('textit').value;
 	socket.emit('message',{ my: ['you',val]});
 	message({ message: ['you', val] });
-	document.getElementById('text').value = "";
+	document.getElementById('textit').value = "";
 };
 
 function esc(msg){
