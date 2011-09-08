@@ -6,7 +6,8 @@
 		<meta name="description" content="LI7E!">
 
 		<!-- socket.io -->
-		<!-- <script type="text/javascript" src="lib/socket.io.js"></script> -->
+		<script src="/socket.io/socket.io.js"></script>
+		<link rel="stylesheet" type="text/css" href="squars.css">
 
 		<!-- jquery UI -->
 		<link type="text/css" href="../../vendor/jquery-ui-themes/ui-darkness/jquery-ui-1.8.9.custom.css" rel="stylesheet" />     
@@ -20,28 +21,56 @@
 
 		<!-- squars -->
 		<script type="text/javascript" src="squars.js"></script>
-		<link type="text/css" rel="stylesheet" href="squars.css"></link> 
+		<link type="text/css" rel="stylesheet" href="squars.css"></link>
 	</head>
-
 	<body style="cursor: auto;">
+		<script  type="text/javascript">
+			function message(obj){
+				var el = document.createElement('p');
+				console.log(obj.message);
+				el.innerHTML = '<b>' + (obj.message[0]) + ':</b> ' + (obj.message[1]);
+				document.getElementById('chat').appendChild(el);
+				document.getElementById('chat').scrollTop = 1000000;
+			};
+
+			function send(){
+				var val = document.getElementById('textit').value;
+				socket.emit('message',{ my: ['you',val]});
+				message({ message: ['you', val] });
+				document.getElementById('textit').value = "";
+			};
+
+			var socket = io.connect('http://localhost:8080/');
+			console.log('conectado');
+			socket.on('message', function(obj){
+				console.log(obj);
+				if ('buffer' in obj){
+					document.getElementById('form').style.display='block';
+					document.getElementById('chat').innerHTML = '';
+
+					for (var i in obj.buffer) 
+						message(obj.buffer[i]);
+				} else 
+					message(obj);
+			});
+		</script> 
 		<div id="box" >
 			<div style="float:left;">
 				<br><br>
 				<input onclick="play();" value="Play" type="button">&nbsp;
 				<input onclick="stop();" value="Stop" type="button">&nbsp;<br> <br>
 				<input onclick="clearClicks();" value="Clear All" type="button">&nbsp;<br> <br>
-
-		<!--			
-				<input onclick="toggleRounded(this.checked);" checked="checked" type="checkbox">Rounded&nbsp;<br>
-				<input onclick="toggleSmoke(this.checked);" checked="checked" type="checkbox">Smokes&nbsp;<br>
-				<input onclick="toggleColor(this.checked);" checked="checked" type="checkbox">Colours&nbsp;<br>
-				<input onclick="toggleRandom(this.checked);" checked="checked" type="checkbox">Random Colours&nbsp;<br>
-		-->
-	
 				<div id="jdebug">Debug</div>
 				<br><br>
 			</div>
 			<canvas style="float:right;" id="squars" width="450" height="450"></canvas>
+		</div> 
+		<div id="divChat">
+			<div id="chat">	</div>
+			<form id="form" onsubmit="send(); return false">
+				<input type="text" autocomplete="off" id="textit">
+				<input type="submit" value="Send">
+			</form>
 		</div> 
 	</body>
 </html>
