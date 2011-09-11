@@ -6,11 +6,12 @@
   the instructions or refer to the links to more information on getting
   everything up and running.
   
-  Install node.js (more info [[https://github.com/joyent/node/wiki/Installation][here]]):
+  Install node.js (currently stable version is 0.4.11) (more info [[https://github.com/joyent/node/wiki/Installation][here]]):
 
   #+BEGIN_SRC sh
-  $ git clone --depth 1 https://github.com/joyent/node.git
-  $ cd node
+  $ wget -c http://nodejs.org/dist/node-v0.4.11.tar.gz
+  $ tar -xvzf node-v0.4.11.tar.gz
+  $ cd node-v0.4.11/
   $ export JOBS=2 # optional, sets number of parallel commands.
   $ mkdir ~/local
   $ ./configure --prefix=$HOME/local/node
@@ -37,7 +38,7 @@
   Install other node.js modules:
 
   #+BEGIN_SRC sh
-  $ npm -g install mime jison
+  $ npm -g install mime jison express
   #+END_SRC
   
 * JS Libraries Used (for now)
