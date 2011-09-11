@@ -22,12 +22,11 @@
 		<!-- squars -->
 		<script type="text/javascript" src="squars.js"></script>
 		<link type="text/css" rel="stylesheet" href="squars.css"></link>
-	</head>
-	<body style="cursor: auto;">
 		<script  type="text/javascript">
 			function message(obj){
 				var el = document.createElement('p');
 				console.log(obj.message);
+				console.log("escrevendo mensagem...");				
 				el.innerHTML = '<b>' + (obj.message[0]) + ':</b> ' + (obj.message[1]);
 				document.getElementById('chat').appendChild(el);
 				document.getElementById('chat').scrollTop = 1000000;
@@ -35,13 +34,14 @@
 
 			function send(){
 				var val = document.getElementById('textit').value;
+				console.log("enviando mensagem...");
 				socket.emit('message',{ my: ['you',val]});
 				message({ message: ['you', val] });
 				document.getElementById('textit').value = "";
 			};
 
 			var socket = io.connect('http://localhost:8080/');
-			console.log('conectado');
+			console.log('Client connected');
 			socket.on('message', function(obj){
 				console.log(obj);
 				if ('buffer' in obj){
@@ -54,6 +54,9 @@
 					message(obj);
 			});
 		</script> 
+	</head>
+	<body style="cursor: auto;">
+		
 		<div id="box" >
 			<div style="float:left;">
 				<br><br>

@@ -283,7 +283,6 @@ function squareClicked(x,y) {
 		// start the audio
 		if(clicked.toggle){
 		    //$('#jdebug').html("Clicked");
-                    console.log("entrei");
 		    var note = majorScale[(Math.abs(clickgrid.gx - 7))];
 		    tmp.list[clickgrid.gx] = note; 
 		    //socket.send(id[1] + ' ' + id[2] + ' 127');

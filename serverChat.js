@@ -20,7 +20,6 @@ app.use('/vendor/jquery-ui-themes/ui-darkness', express.static(__dirname + '/ven
 var buffer = [];
 
 io.sockets.on('connection', function(client){
-
     client.send({ buffer: buffer });
 
     client.on('message', function(msg){

@@ -13,10 +13,6 @@ function send(){
 	document.getElementById('textit').value = "";
 };
 
-function esc(msg){
-	return msg.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-};
-
 var socket = io.connect('http://localhost:8080/');
 
 socket.on('message', function(obj){

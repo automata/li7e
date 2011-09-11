@@ -8,9 +8,6 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/client.html');
 });
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/client.html');
-});
 
 app.use("/style", express.static(__dirname + '/style'));
 app.use("/js", express.static(__dirname + '/js'));
