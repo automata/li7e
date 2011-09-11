@@ -17,15 +17,9 @@ var socket = io.connect('http://localhost:8080/');
 
 socket.on('message', function(obj){
 	console.log(obj);
-	if ('buffer' in obj){
-		document.getElementById('form').style.display='block';
-		document.getElementById('chat').innerHTML = '';
+	message(obj);
+});
 
-		for (var i in obj.buffer) 
-			message(obj.buffer[i]);
-	} else 
-		message(obj);
-});/*
 socket.on('announcement', function(obj){
-	alert("cheguei");		
-});*/
+	alert("user disconnected");		
+});
