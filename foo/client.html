@@ -10,44 +10,9 @@
 
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="js/Audiolet.min.js"></script>
+    <script type="text/javascript" src="js/Audiolet.js"></script>
     <script type="text/javascript" src="js/squars.js"></script>
     <!-- <script type="text/javascript" src="js/client.js"></script> --> 
-    
-    
-       <script  type="text/javascript">
-	 function message(obj){
-	 var el = document.createElement('p');
-	 console.log(obj.message);
-	 console.log("escrevendo mensagem...");				
-	 el.innerHTML = '<b>' + (obj.message[0]) + ':</b> ' + (obj.message[1]);
-	 document.getElementById('chat').appendChild(el);
-	 document.getElementById('chat').scrollTop = 1000000;
-	 };
-
-	 function send(){
-	 var val = document.getElementById('textit').value;
-	 console.log("enviando mensagem...");
-	 socket.emit('message',{ my: ['you',val]});
-	 message({ message: ['you', val] });
-	 document.getElementById('textit').value = "";
-	 };
-
-	 var socket = io.connect('http://localhost:8080/');
-	 console.log('Client connected');
-	 socket.on('message', function(obj){
-	 console.log(obj);
-	 if ('buffer' in obj){
-	 document.getElementById('form').style.display='block';
-	 document.getElementById('chat').innerHTML = '';
-
-	 for (var i in obj.buffer) 
-	 message(obj.buffer[i]);
-	 } else 
-	 message(obj);
-	 });
-       </script> 
-       
   </head>
   <body style="cursor: auto;">
     
