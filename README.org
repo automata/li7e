@@ -29,7 +29,7 @@ Everywhere for everyone.
 
 * Using
 
-For now just point your browser to *index.html*.
+For now just point your browser to *index.html*. Or check http://automata.cc/li7e/index.html.
 
 * How to update li7e (((libraries)))
 
