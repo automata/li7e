@@ -1,11 +1,11 @@
     #+BEGIN_SRC sh
          ______
-        \____  |
-    |\       | |
-    | |      | |
-    | |      | | 
-    | |____   \|
-    |______\
+        \____  !
+    !\       ! !
+    ! !      ! !
+    ! !      ! ! 
+    ! !____   \!
+    !______\
 
     LI7E... LI^E... LI<E... LIVE. A colaborative web of creativity.
 
@@ -15,15 +15,15 @@
 
 We need a web of creativity.
 
-A place to put together [[http://processingjs.org][all]] [[http://paperjs.org][JS]] [[http://threejs.github.com][libs]] [[http://github.com/oampo/Audiolet][dealing]] with creavite apps.
+A place to put together [[http://processingjs.org/][all]] [[http://paperjs.org/][JS]] [[http://threejs.github.com][libs]] [[http://github.com/oampo/Audiolet][dealing]] with creavite apps.
 
-A place to develop together in a [[http://etherpad.org][collaborative]] and [[http://sharejs.org][distributed way]].
+A place to develop together in a [[http://etherpad.org/][collaborative]] and [[http://sharejs.org/][distributed way]].
 
-A place to make people share [[http://scratch.mit.edu][their]] [[http://sketchpad.cc][own]] [[http://hackasaurus.org][remixes]].
+A place to make people share [[http://scratch.mit.edu][their]] [[http://sketchpad.cc][own]] [[http://hackasaurus.org/][remixes]].
 
 Where is possible to use [[http://arduino.cc][external devices]], [[http://web.media.mit.edu/~silver/makeymakey/][remixing the physical world]].
 
-This place have to be embedded in any Web page making possible to [[http://hackasaurus.org][hack the whole web]].
+This place have to be embedded in any Web page making possible to [[http://hackasaurus.org/][hack the whole web]].
 
 Everywhere for everyone.
 
