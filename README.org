@@ -7,7 +7,7 @@
     ! !____   \!
     !______\
 
-    LI7E... LI^E... LI<E... LIVE. A colaborative web of creativity.
+    LI7E... LI^E... LI<E... LIVE. A collaborative web of creativity.
 
     #+END_SRC
 
@@ -29,7 +29,7 @@ Everywhere for everyone.
 
 * Using
 
-For now just point your browser to *index.html*. Or check http://automata.cc/li7e/index.html.
+For now just point your browser to *index.html*. Or check [[http://automata.cc/li7e/index.html][http://automata.cc/li7e/index.html]].
 
 * How to update li7e (((libraries)))
 
