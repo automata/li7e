@@ -1,8 +1,0 @@
-saw:Saw -> filter:LowPassFilter -> gain:Gain -> output:Output
-frequencyLFO:Sine -> frequencyMA:MulAdd -> saw // FIXME: tratar conexões a.connect(b, 0, 1)
-filterLFO:Sine -> filterMA:MulAdd -> filter
-env:ADSREnvelope -> gain
-
-frequencyMA.add = [55, 55, 98, 98, 73, 73, 98, 98] ^ Infinity
-filterLFO.frequency = [2, 4, 6, 8]^Infinity
-env.gate = [1, 0]^Infinity
