@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title> LI7E </title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/codemirror.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" />
+
+    <script type="text/javascript" src="/static/js/codemirror.js"></script>
+    <script type="text/javascript" src="/static/js/javascript.js"></script>
+    <script type="text/javascript" src="/static/js/paper.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
+    <script type="text/javascript" src="/static/slider/js/jquery.ui.slider.js"></script>
+<!--
+    <script type="text/javascript" src="/static/js/underscore-min.js"></script>
+    <script type="text/javascript" src="/static/js/backbone-min.js"></script>
+-->
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.js"></script>
+    <script src="/share/cm.js"></script>
+
+  </head>
+  <body>
+
+    <div id="editor">
+      <textarea id="code" name="code"></textarea>
+    </div>
+
+    <textarea id="code2" disabled>Loading...</textarea>
+
+    <div id="publish">Publish</div>
+
+    <iframe id="preview_iframe"></iframe>
+
+    <div id="status"></div>
+    <div id="slider"></div>
+
+    <script src="/static/js/li7e.js"></script>
+  
+    <script>
+
+function setDoc(docName) {
+  document.title = docName;
+
+  sharejs.open(docName, function(error, newDoc) {
+      doc = newDoc;
+
+      if (error) {
+          console.error(error);
+          return;
+      }
+      doc.attach_cm(editor);
+  });
+};
+
+      setDoc('<%= doc_name %>');
+
+    </script>
+
+  </body>
+</html>

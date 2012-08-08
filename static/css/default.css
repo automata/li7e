@@ -1,0 +1,30 @@
+body {
+    background: url("pattern2.png");
+}
+
+#editor {
+    width: 500px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 40px 10px;
+    border-bottom-left-radius: 40px 10px;
+    -moz-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.4);
+    background: #fff;
+}
+
+#slider {
+	visibility: hidden;
+	z-index: 100;
+	width: 15%;
+	-moz-box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.4);
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#slider .ui-slider-handle {
+	background: #000;
+	border-color: #666;
+}
+
