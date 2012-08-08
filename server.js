@@ -40,19 +40,12 @@ app.get('/:doc_name', function(req, res){
 
 // show the full editor
 app.get('/:doc_name/edit', function (req, res) {
-  // TODO: change to full -> edit
   res.render("edit", {doc_name: req.params.doc_name});
 });
 
 // just show the editor area /:doc_name/editor
-
-app.get('/preview', function(req, res) {
-  res.send(req.session.code);
-});
-
-app.get('/publish', function (req, res) {
-  req.session.code = req.query.code;
-  res.send(req.query.code);
+app.get('/:doc_name/editor', function (req, res) {
+  res.render("editor", {doc_name: req.params.doc_name});
 });
 
 app.listen(3000);

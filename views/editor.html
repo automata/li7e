@@ -41,44 +41,20 @@
     <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
     <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" />
 
+    <!-- the editor is a meemoo module too -->
+<!--    <script type="text/javascript" src="http://meemoo.org/meemoo/v1/meemoo-min.js"></script> -->
+
   </head>
 
   <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">LI7E : <%= doc_name %></a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
     <div class="container">
 
-      <div class="row">
-        <div class="span6">
           <div id="editor">
             <textarea id="code" name="code"></textarea>
           </div>
-          <div id="status"></div>
           <div id="slider"></div>
-        </div>
 
-        <div class="span6">
-          <iframe id="preview_iframe"></iframe>
-        </div>
-      </div>
     </div>
 
     <script src="/static/js/li7e.js"></script>
@@ -105,7 +81,6 @@ function setDoc(docName) {
 };
 
       setDoc('<%= doc_name %>');
-
     </script>
 
   </body>

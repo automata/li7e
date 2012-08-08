@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> LI7E : <%= doc_name %> </title>
+
+    <script type="text/javascript" src="/static/js/codemirror2/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/static/css/codemirror.css"> 
+    <link rel="stylesheet" href="/static/js/codemirror2/theme/ambiance.css">
+<script type="text/javascript" src="/static/js/codemirror2/mode/xml/xml.js"></script>
+<script type="text/javascript" src="/static/js/codemirror2/mode/css/css.js"></script>
+<script type="text/javascript" src="/static/js/codemirror2/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="/static/js/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
+    <script type="text/javascript" src="/static/slider/js/jquery.ui.slider.js"></script>
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.js"></script>
+    <script src="/share/cm.js"></script>
+
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />-->
+    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" />
+
+  </head>
+
+  <body>
+
+      <textarea id="code" name="code">Here...</textarea>
+
+      <iframe id="preview_iframe"></iframe>
+        
+      <div id="status"></div>
+      <div id="slider"></div>
+
+    <script src="/static/js/li7e.js"></script>
+  
+    <script>
+
+function setDoc(docName) {
+  document.title = docName;
+
+  sharejs.open(docName, function(error, newDoc) {
+      doc = newDoc;
+
+      if (error) {
+          console.error(error);
+          return;
+      }
+      doc.attach_cm(editor);
+  });
+};
+
+      setDoc('<%= doc_name %>');
+
+    </script>
+
+  </body>
+</html>

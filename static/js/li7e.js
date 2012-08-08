@@ -1,12 +1,22 @@
 $(function () {
+  var delay;
   // some editor settings using codemirror
   editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: "htmlmixed",
+    tabMode: "indent",
+    electricChars: true,
+    indentWithTabs: false,
+    indentUnit: 2,
+    tabSize: 2,
+    smartIndent: true,
     lineNumbers: true,
     gutter: true,
     fixedGutter: true,
     matchBrackets: true,
+    theme: "ambiance",
     onChange: function () { 
-      run_code(); 
+      clearTimeout(delay);
+      delay = setTimeout(updatePreview, 300);
     }
   });
 
@@ -32,23 +42,14 @@ $(function () {
     }
   });
   
-  run_code = function() {
-    //eval(editor.getValue());
-    var previewFrame = document.getElementById('preview_iframe');
-    var preview =  previewFrame.contentDocument || 
-      previewFrame.contentWindow.document;
+function updatePreview() {
+        var previewFrame = document.getElementById('preview_iframe');
+        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+        preview.open();
+        preview.write(editor.getValue());
+        preview.close();
+      }
+      setTimeout(updatePreview, 300);
 
-    preview.open();
-    if (editor.getValue() !== "") {
-      preview.write(editor.getValue());
-    }
-    preview.close();
-  }
 
-  $('#publish').click(function() {
-    var v = editor.getValue();
-    $.get('/publish', {code: v}, function(result) {
-      $('#status').html('Retornou:' + result);
-    })
-  });
 });

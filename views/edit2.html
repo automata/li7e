@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title> LI7E : <%= doc_name %> </title>
+
+    <script type="text/javascript" src="/static/js/codemirror2/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/static/js/codemirror2/theme/ambiance.css">
+    <script type="text/javascript" src="/static/js/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
+    <script type="text/javascript" src="/static/slider/js/jquery.ui.slider.js"></script>
+    <script src="/channel/bcsocket.js"></script>
+    <script src="/share/share.js"></script>
+    <script src="/share/cm.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" />
+
+
+  </head>
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-page">
+          <a class="brand" href="#">LI7E</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="container-page">
+
+          <form><textarea id="code"></textarea></form>
+
+        <iframe id="preview_iframe"></iframe>
+        
+        <div id="status"></div>
+        <div id="slider"></div>
+      </div>
+
+    </div>
+
+    <script src="/static/js/li7e.js"></script>
+  
+    <script>
+
+function setDoc(docName) {
+  document.title = docName;
+
+  sharejs.open(docName, function(error, newDoc) {
+      doc = newDoc;
+
+      if (error) {
+          console.error(error);
+          return;
+      }
+      doc.attach_cm(editor);
+  });
+};
+
+      setDoc('<%= doc_name %>');
+
+    </script>
+
+  </body>
+</html>
