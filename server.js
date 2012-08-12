@@ -3,6 +3,9 @@ var express = require('express'),
     sharejs_client = require('share').client;
 var app = express();
 
+// favicon setup
+app.use(express.favicon(__dirname + '/static/favicon.ico', { maxAge: 2592000000 }));
+
 // attach the sharejs REST and Socket.io interfaces to the server
 var options = {db: {type: 'none'}};
 sharejs.attach(app, options);
@@ -29,6 +32,11 @@ app.use("/static", express.static(__dirname + '/static'));
 //
 // routers
 //
+
+// index
+app.get('/', function (req, res) {
+  res.render("index", {doc_name: req.params.doc_name});
+});
 
 // show just the raw
 app.get('/:doc_name', function(req, res){

@@ -11,5 +11,27 @@ body {
     border-radius: 3px;
     box-shadow: 0 0 15px #000;
     padding: 1px;
+    width: 100%;
 }
 
+/* PREVIEW IFRAME */
+
+iframe {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    border: 0px none;
+    -moz-box-sizing: border-box;
+}
+
+#preview {
+    background-color: #888;
+    height: 610px;
+    box-shadow: 0 0 15px #000;
+    padding: 1px;
+
+}
+
+.span4 {
+    color: #eeeeee;
+}

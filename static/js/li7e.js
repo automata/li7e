@@ -13,11 +13,7 @@ $(function () {
     gutter: true,
     fixedGutter: true,
     matchBrackets: true,
-    theme: "ambiance",
-    onChange: function () { 
-      clearTimeout(delay);
-      delay = setTimeout(updatePreview, 300);
-    }
+    theme: "ambiance"
   });
 
   var slider = $('#slider');
@@ -40,16 +36,5 @@ $(function () {
     } else {
       slider.css('visibility', 'hidden'); 
     }
-  });
-  
-function updatePreview() {
-        var previewFrame = document.getElementById('preview_iframe');
-        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
-        preview.open();
-        preview.write(editor.getValue());
-        preview.close();
-      }
-      setTimeout(updatePreview, 300);
-
-
+  });  
 });

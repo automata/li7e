@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <link href="/static/css/bootstrap/css/bootstrap.css" rel="stylesheet">
+
     <style>
       body {
         padding-top: 60px; 
@@ -26,20 +27,25 @@
     <script type="text/javascript" src="/static/js/codemirror2/lib/codemirror.js"></script>
     <link rel="stylesheet" href="/static/css/codemirror.css">
     <link rel="stylesheet" href="/static/js/codemirror2/theme/ambiance.css">
-<script type="text/javascript" src="/static/js/codemirror2/mode/xml/xml.js"></script>
-<script type="text/javascript" src="/static/js/codemirror2/mode/css/css.js"></script>
-<script type="text/javascript" src="/static/js/codemirror2/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="/static/js/codemirror2/mode/xml/xml.js"></script>
+    <script type="text/javascript" src="/static/js/codemirror2/mode/css/css.js"></script>
+    <script type="text/javascript" src="/static/js/codemirror2/mode/javascript/javascript.js"></script>
 
     <script type="text/javascript" src="/static/js/codemirror2/mode/htmlmixed/htmlmixed.js"></script>
 
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>    
+<!--
     <script type="text/javascript" src="/static/slider/js/jquery.ui.slider.js"></script>
+-->
     <script src="/channel/bcsocket.js"></script>
     <script src="/share/share.js"></script>
     <script src="/share/cm.js"></script>
 
+    <script type="text/javascript" src="/static/js/bootstrap-dropdown.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
-    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" />
+<!--    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" /> -->
 
   </head>
 
@@ -48,16 +54,21 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">LI7E : <%= doc_name %></a>
+          <a class="brand" href="../"><img src="/static/css/logo.png" /></a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li class="divider-vertical"></li>
+               <li class="dropdown" id="menu1">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   Include Libraries
+                   <b class="caret"></b>
+                 </a>
+                 <ul class="dropdown-menu">
+                   <li><a href="#">Processing.js</a></li>
+                   <li><a href="#">Three.js</a></li>
+                 </ul>
+               </li>
+
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -66,17 +77,15 @@
 
     <div class="container">
 
-      <div class="row">
+      <div class="row-fluid">
         <div class="span6">
           <div id="editor">
             <textarea id="code" name="code"></textarea>
           </div>
-          <div id="status"></div>
-          <div id="slider"></div>
         </div>
 
-        <div class="span6">
-          <iframe id="preview_iframe"></iframe>
+        <div class="span6" id="preview">
+          <iframe id="preview_iframe" frameborder="0"></iframe>
         </div>
       </div>
     </div>
@@ -84,28 +93,21 @@
     <script src="/static/js/li7e.js"></script>
   
     <script>
-var doc = null, editor = null;
-function setDoc(docName) {
-  document.title = docName;
-
-  sharejs.open(docName, function(error, newDoc) {
-      if (doc !== null) {
-          doc.close();
-          doc.detach_cm();
+      function setDoc(docName) {
+        sharejs.open(docName, 'text', function(error, doc) {
+          doc.attach_codemirror(editor);
+          doc.onChange = function () {
+            var previewFrame = document.getElementById('preview_iframe');
+            var preview =  previewFrame.contentDocument 
+              ||  previewFrame.contentWindow.document;
+            preview.open();
+            preview.write(editor.getValue());
+            preview.close();
+          };
+        });
       }
-
-      doc = newDoc;
-
-      if (error) {
-          console.error(error);
-          return;
-      }
-      doc.attach_cm(editor);
-  });
-};
 
       setDoc('<%= doc_name %>');
-
     </script>
 
   </body>
