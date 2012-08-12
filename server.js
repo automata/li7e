@@ -7,7 +7,7 @@ var app = express();
 app.use(express.favicon(__dirname + '/static/favicon.ico', { maxAge: 2592000000 }));
 
 // attach the sharejs REST and Socket.io interfaces to the server
-var options = {db: {type: 'none'}};
+var options = {db: {type: 'redis'}};
 sharejs.attach(app, options);
 
 // let's use ejs as template engine
