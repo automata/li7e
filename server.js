@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
 // show just the raw
 app.get('/:doc_name', function(req, res){
   //res.render("preview", {doc_name: req.params.doc_name});
-  sharejs_client.open(req.params.doc_name, 'text', 'http://127.0.0.1:3000/channel', function(error, doc) {
+  sharejs_client.open(req.params.doc_name, 'text', 'http://127.0.0.1/channel', function(error, doc) {
     res.send(doc.getText());
   });
 });
@@ -56,5 +56,5 @@ app.get('/:doc_name/editor', function (req, res) {
   res.render("editor", {doc_name: req.params.doc_name});
 });
 
-app.listen(3000);
-console.log('Server running at http://127.0.0.1:3000/');
+app.listen(80);
+console.log('Server running at http://127.0.0.1');
