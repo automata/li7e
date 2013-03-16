@@ -56,5 +56,5 @@ app.get('/:doc_name/editor', function (req, res) {
   res.render("editor", {doc_name: req.params.doc_name});
 });
 
-app.listen(80);
+app.listen(8080);
 console.log('Server running at http://127.0.0.1');

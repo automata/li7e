@@ -9,13 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="/static/css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/fonts.css" />
 
-    <style>
-      body {
-        padding-top: 60px; 
-      }
-    </style>
+    <link href="/static/css/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <link href="/static/css/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -26,7 +22,7 @@
 
     <script type="text/javascript" src="/static/js/codemirror2/lib/codemirror.js"></script>
     <link rel="stylesheet" href="/static/css/codemirror.css">
-    <link rel="stylesheet" href="/static/js/codemirror2/theme/ambiance.css">
+    <link rel="stylesheet" href="/static/js/codemirror2/theme/lesser-dark.css">
     <script type="text/javascript" src="/static/js/codemirror2/mode/xml/xml.js"></script>
     <script type="text/javascript" src="/static/js/codemirror2/mode/css/css.js"></script>
     <script type="text/javascript" src="/static/js/codemirror2/mode/javascript/javascript.js"></script>
@@ -44,51 +40,50 @@
 
     <script type="text/javascript" src="/static/js/bootstrap-dropdown.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
 <!--    <link rel="stylesheet" type="text/css" href="/static/slider/css/humanity/jquery-ui-slider.css" /> -->
 
   </head>
 
   <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="../"><img src="/static/css/logo.png" /></a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="divider-vertical"></li>
-               <li class="dropdown" id="menu1">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                   Include Libraries
-                   <b class="caret"></b>
-                 </a>
-                 <ul class="dropdown-menu">
-                   <li><a href="#">Processing.js</a></li>
-                   <li><a href="#">Three.js</a></li>
-                 </ul>
-               </li>
-
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+    <div id="panel">
+      <div id="li7e-button"></div>
+      <div id="panel-header">
+        <ul id="header-bar">
+          <li>
+            <span aria-hidden="true" class="icon-books button-header"></span>
+          </li>
+          <li>
+            <span aria-hidden="true" class="icon-users button-header"></span>
+          </li>
+          <li>
+            <span aria-hidden="true" class="icon-star button-header"></span>
+          </li>
+          <li>
+            <span aria-hidden="true" class="icon-rocket button-header"></span>
+          </li>
+          <li>
+            <span aria-hidden="true" class="icon-upload button-header"></span>
+          </li>
+          <li>               
+            <span aria-hidden="true" class="icon-cog button-header"></span>
+          </li>
+        </ul>
       </div>
-    </div>
+      <div id="panel-tabs"></div>
+      <div id="panel-code">
 
-    <div class="container">
-
-      <div class="row-fluid">
-        <div class="span6">
-          <div id="editor">
             <textarea id="code" name="code"></textarea>
-          </div>
-        </div>
 
-        <div class="span6" id="preview">
-          <iframe id="preview_iframe" frameborder="0"></iframe>
-        </div>
-      </div>
+</div>
     </div>
+
+    <div id="canvas">
+      <iframe id="preview_iframe" frameborder="0"></iframe>
+    </div>
+
+
 
     <script src="/static/js/li7e.js"></script>
   
@@ -108,6 +103,26 @@
       }
 
       setDoc('<%= doc_name %>');
+
+$(document).ready(function(){
+        var active = false;
+        $("#li7e-button").click(function(){
+//.animate({opacity: "0.1", left: "+=400"}, 1200)
+                if (active === false) {
+                  $("#panel").animate({left: "+=600"}, "slow");
+                  $("#li7e-button").animate({marginRight: "+=35"}, "slow");
+                  active = true;
+                } else {
+                  $("#panel").animate({left: "-=600"}, "slow");
+                  $("#li7e-button").animate({marginRight: "-=35"}, "slow");
+                  active = false;
+                }
+                $(this).toggleClass("active"); return false;
+        });
+
+         
+});
+
     </script>
 
   </body>
